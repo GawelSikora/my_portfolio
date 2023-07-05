@@ -1,16 +1,18 @@
-
 import 'package:flutter/material.dart';
+import 'package:hive_flutter/hive_flutter.dart';
 
 class HomePage extends StatelessWidget {
-  const HomePage({
+  HomePage({
     super.key,
   });
+
+  final _box = Hive.box('StringsBox');
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('My Name\'s Porfolio'),
+        title: Text(_box.get('name') + '\'s Porfolio'),
         actions: [
           IconButton(onPressed: () {}, icon: const Icon(Icons.edit)),
         ],
@@ -35,18 +37,18 @@ class HomePage extends StatelessWidget {
                   height: 400,
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.start,
-                    children: const [
-                      Text(
+                    children: [
+                      const Text(
                         'About me',
                         style: TextStyle(
                             fontWeight: FontWeight.bold,
                             fontStyle: FontStyle.italic,
                             fontSize: 20),
                       ),
-                      SizedBox(
+                      const SizedBox(
                         height: 10,
                       ),
-                      Text('Text about you'),
+                      Text(_box.get('aboutMe')),
                     ],
                   ),
                 ),

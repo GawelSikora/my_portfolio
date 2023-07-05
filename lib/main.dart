@@ -1,9 +1,13 @@
 import 'package:flutter/material.dart';
 
-import 'pages/home page/home_page.dart';
+import 'package:hive_flutter/hive_flutter.dart';
+
 import 'pages/start edit page/start_edit_page.dart';
 
-void main() {
+void main() async {
+  await Hive.initFlutter();
+  await Hive.openBox('StringsBox');
+
   runApp(const MyApp());
 }
 
@@ -17,7 +21,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.deepPurple,
       ),
-      home: StartEditPage(),
+      home: const StartEditPage(),
     );
   }
 }
