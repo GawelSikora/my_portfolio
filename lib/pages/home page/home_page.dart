@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:hive_flutter/hive_flutter.dart';
+import 'package:my_portfolio/pages/start%20edit%20page/start_edit_page.dart';
 
 class HomePage extends StatelessWidget {
   HomePage({
@@ -14,7 +15,15 @@ class HomePage extends StatelessWidget {
       appBar: AppBar(
         title: Text(_box.get('name') + '\'s Porfolio'),
         actions: [
-          IconButton(onPressed: () {}, icon: const Icon(Icons.edit)),
+          IconButton(
+              onPressed: () {
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => const StartEditPage(),
+                    ));
+              },
+              icon: const Icon(Icons.edit)),
         ],
       ),
       body: Padding(
