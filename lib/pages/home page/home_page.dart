@@ -9,11 +9,27 @@ class HomePage extends StatelessWidget {
 
   final _box = Hive.box('StringsBox');
 
+  String name() {
+    final get = _box.get('name');
+
+    var name = get ?? 'name';
+
+    return name;
+  }
+
+  String aboutMe() {
+    final get = _box.get('aboutMe');
+
+    var aboutMe = get ?? 'about me';
+
+    return aboutMe;
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(_box.get('name') + '\'s Porfolio'),
+        title: Text('${name()}\'s Porfolio'),
         actions: [
           IconButton(
               onPressed: () {
@@ -36,19 +52,19 @@ class HomePage extends StatelessWidget {
               children: [
                 Container(
                   height: 150,
-                  width: 150,
+                  width: 120,
                   color: Colors.blue,
                   child: const Text('User Profile Picture'),
                 ),
                 Container(
                   color: Colors.blueGrey,
-                  width: 200,
+                  width: 160,
                   height: 400,
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.start,
                     children: [
                       const Text(
-                        'About me',
+                        'About Me',
                         style: TextStyle(
                             fontWeight: FontWeight.bold,
                             fontStyle: FontStyle.italic,
@@ -57,7 +73,7 @@ class HomePage extends StatelessWidget {
                       const SizedBox(
                         height: 10,
                       ),
-                      Text(_box.get('aboutMe')),
+                      Text(aboutMe()),
                     ],
                   ),
                 ),
