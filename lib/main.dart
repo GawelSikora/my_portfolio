@@ -7,7 +7,8 @@ import 'pages/start edit page/start_edit_page.dart';
 
 import 'package:camera/camera.dart';
 
-void main() async {
+Future<void> main() async {
+  WidgetsFlutterBinding.ensureInitialized();
   await Hive.initFlutter();
   await Hive.openBox('StringsBox');
   await availableCameras();

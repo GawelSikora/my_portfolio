@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:my_portfolio/pages/home%20page/home_page.dart';
 import 'package:camera/camera.dart';
+import 'package:my_portfolio/pages/start%20edit%20page/camera.dart';
 
 class StartEditPage extends StatefulWidget {
   const StartEditPage({
@@ -32,17 +33,6 @@ class _StartEditPageState extends State<StartEditPage> {
     _box.put('aboutMe', aboutMe);
   }
 
-  Future<void> getCameras() async {
-    List<CameraDescription> cameras = await availableCameras();
-
-    CameraController controller =
-        CameraController(cameras[0], ResolutionPreset.medium);
-
-    await controller.initialize();
-
-    CameraPreview(controller);
-  }
-
   @override
   Widget build(BuildContext context) {
     controllerName = TextEditingController(text: _box.get('name'));
@@ -66,6 +56,10 @@ class _StartEditPageState extends State<StartEditPage> {
                 maxLength: 22,
                 controller: controllerName,
                 focusNode: focusNodeName,
+                onTapOutside: (event) {
+                  saveName();
+                  focusNodeName.unfocus();
+                },
               )),
           IconButton(
               onPressed: () {
@@ -98,7 +92,11 @@ class _StartEditPageState extends State<StartEditPage> {
                         padding: const EdgeInsets.all(8.0),
                         child: ElevatedButton(
                             onPressed: () {
-                              getCameras();
+                              Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                    builder: (context) => const MyWidget(),
+                                  ));
                             },
                             child: const Text('add/change picture')),
                       )
@@ -127,6 +125,10 @@ class _StartEditPageState extends State<StartEditPage> {
                         maxLength: 250,
                         controller: controllerAboutMe,
                         focusNode: focusNodeAboutMe,
+                        onTapOutside: (event) {
+                          saveAboutMe();
+                          focusNodeAboutMe.unfocus();
+                        },
                       ),
                       Padding(
                         padding: const EdgeInsets.all(8.0),
